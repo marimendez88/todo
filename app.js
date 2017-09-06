@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import Header from "./header";
 import Footer from "./footer";
-import Row from "./row";
+import Row from "./ow";
 export default class App extends Component {
 
   constructor(props){
@@ -28,9 +28,11 @@ export default class App extends Component {
     this.handleToggleAllComplete = this.handleToggleAllComplete.bind(this);
   }
   setSource(items, itemsDataSource, otherState = {}){
-    items,
-    dataSource: this.state.dataSource.cloneWithRows(itemsDataSource),
-    ...otherState
+    this.setState({
+      items,
+      dataSource: this.state.dataSource.cloneWithRows(itemsDataSource),
+      ...otherState
+    })
   }
   handleToggleAllComplete(){
     const complete = !this.state.allComplete;
@@ -38,11 +40,8 @@ export default class App extends Component {
       ...item,
       complete
     }))
-     console.table(newItems);
-    this.setState({
-      items : newItems,
-      allComplete: complete
-    })
+    console.table(newItems);
+    this.setSource(newItems, newItems, {allComplete: complete})
   }
    handleAddItem(){
      if (!this.state.value) return;
@@ -54,10 +53,7 @@ export default class App extends Component {
         complete:false
       }
    ]
-   this.setState({
-     items: newItems,
-     value: ""
-   })
+   this.setSource(newItems, newItems, {value: ""})
   }
 
   render() {

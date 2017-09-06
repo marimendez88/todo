@@ -11,7 +11,7 @@ export default class Row extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Im the MyComponent component</Text>
+        <Text>{this.props.text}</Text>
       </View>
     );
   }
